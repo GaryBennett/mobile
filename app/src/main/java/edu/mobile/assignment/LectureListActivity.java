@@ -2,19 +2,35 @@ package edu.mobile.assignment;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.ListActivity;
 import android.app.LoaderManager;
+import android.app.PendingIntent;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import edu.mobile.assignment.data.LectureDataModel;
 
@@ -44,6 +60,40 @@ public class LectureListActivity extends ListActivity implements LoaderManager.L
         setListAdapter(adapter);
 
         getLoaderManager().initLoader(0,null,this);
+
+        adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int i) {
+                if(i == cursor.getColumnIndexOrThrow(LectureDataModel.LectureEntity.COL_TIME)){
+                    int time = cursor.getInt(cursor.getColumnIndexOrThrow(LectureDataModel.LectureEntity.COL_TIME));
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.MILLISECOND,time);
+                    TextView textView = (TextView) view;
+                    textView.setText(cal.get(Calendar.HOUR_OF_DAY)+":00");
+                }
+                return true;
+            }
+        });
+
+
+        final GestureDetector gestureDetector;
+        gestureDetector = new GestureDetector(getApplicationContext(),new MyGestureDetector(getListView()));
+
+        getListView().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (gestureDetector.onTouchEvent(motionEvent)) {
+                    showDeleteButton(getListView().pointToPosition((int)motionEvent.getX(),(int)motionEvent.getY()));
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
     }
 
     @Override
@@ -58,35 +108,71 @@ public class LectureListActivity extends ListActivity implements LoaderManager.L
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        adapter.swapCursor(cursor);
-
-    }
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) { adapter.swapCursor(cursor); }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         adapter.swapCursor(null);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_lecture_list, menu);
-        return true;
+
+    private void setAlarmForLecture(int pos){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND,5);
+
+        Intent intent = new Intent(getApplicationContext(),LectureNotifyReceiver.class);
+        Cursor c = ((SimpleCursorAdapter) getListView().getAdapter()).getCursor();
+        c.moveToPosition(pos);
+        intent.putExtra("name",c.getString(c.getColumnIndexOrThrow(LectureDataModel.LectureEntity.COL_NAME)));
+        intent.putExtra("time",c.getString(c.getColumnIndexOrThrow(LectureDataModel.LectureEntity.COL_TIME)));
+        intent.putExtra("room",c.getString(c.getColumnIndexOrThrow(LectureDataModel.LectureEntity.COL_ROOM)));
+
+
+        PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(),1,intent,PendingIntent.FLAG_ONE_SHOT);
+
+        AlarmManager am = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
+        am.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pi);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+    private boolean showDeleteButton(final int pos) {
+        View child = getListView().getChildAt(pos);
+        if (child != null){
+            ImageButton delete = (ImageButton) child.findViewById(R.id.btn_set_alarm);
+            if (delete != null)
+                if (delete.getVisibility() == View.GONE)
+                    delete.setVisibility(View.VISIBLE);
+                else
+                    delete.setVisibility(View.GONE);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setAlarmForLecture(pos);
+                    view.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(),"Alarm is set",Toast.LENGTH_SHORT).show();
+                }
+            });
             return true;
         }
+        return false;
+    }
 
-        return super.onOptionsItemSelected(item);
+    public static class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
+        private ListView list;
+
+        public static final int SWIPE_MIN_DISTANCE = 120;
+        public static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+        public MyGestureDetector(ListView list) {
+            this.list = list;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
+                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+//                if (showDeleteButton(e1))
+                    return true;
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
     }
 }

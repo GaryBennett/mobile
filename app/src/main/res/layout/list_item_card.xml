@@ -64,4 +64,15 @@
 
 
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="71dp"
+        android:layout_height="match_parent"
+        android:id="@+id/btn_set_alarm"
+        android:layout_gravity="right|center_vertical"
+        android:src="@android:drawable/ic_lock_idle_alarm"
+        android:background="#ffff0300"
+        android:scaleType="fitCenter"
+        android:padding="10dp"
+        android:visibility="gone" />
 </FrameLayout>

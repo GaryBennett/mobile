@@ -32,6 +32,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.mobile.assignment.MainActivity" />
         </activity>
+
+        <receiver
+            android:name="edu.mobile.assignment.LectureNotifyReceiver"
+            android:enabled="true"
+            android:exported="true" >
+        </receiver>
     </application>
 
 </manifest>
