@@ -32,19 +32,19 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this.getApplicationContext(),LectureListActivity.class);
         switch (view.getId()){
             case R.id.btn_mon:
-                intent.putExtra("day","mon");
+                intent.putExtra("day",86400000*0);
                 break;
             case R.id.btn_tue:
-                intent.putExtra("day","tue");
+                intent.putExtra("day",86400000*1);
                 break;
             case R.id.btn_wed:
-                intent.putExtra("day","wed");
+                intent.putExtra("day",86400000*2);
                 break;
             case R.id.btn_thur:
-                intent.putExtra("day","thur");
+                intent.putExtra("day",86400000*3);
                 break;
             case R.id.btn_fri:
-                intent.putExtra("day","fri");
+                intent.putExtra("day",86400000*4);
                 break;
         }
         startActivity(intent);

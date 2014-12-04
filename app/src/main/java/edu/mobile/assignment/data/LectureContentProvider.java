@@ -53,7 +53,7 @@ public class LectureContentProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query(LectureDataModel.LectureEntity.TABLE_NAME,null,null,null,null,null,null,null);
+        Cursor cursor = db.query(LectureDataModel.LectureEntity.TABLE_NAME,null,selection,selectionArgs,null,null,null,null);
         return cursor;
     }
 

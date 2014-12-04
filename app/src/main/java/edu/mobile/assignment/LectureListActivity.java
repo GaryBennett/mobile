@@ -104,7 +104,10 @@ public class LectureListActivity extends ListActivity implements LoaderManager.L
                 LectureDataModel.LectureEntity.COL_TIME,
                 LectureDataModel.LectureEntity.COL_ROOM
         };
-        return new CursorLoader(this, LectureDataModel.BASE_CONTENT_URI, columns,null,null,null);
+        return new CursorLoader(this, LectureDataModel.BASE_CONTENT_URI, columns,
+                LectureDataModel.LectureEntity.COL_TIME+" >= ? and "+LectureDataModel.LectureEntity.COL_TIME+" < ?",
+                new String[]{String.valueOf(getIntent().getIntExtra("day",0)),
+                        String.valueOf(getIntent().getIntExtra("day",0)+86400000)},null);
     }
 
     @Override
