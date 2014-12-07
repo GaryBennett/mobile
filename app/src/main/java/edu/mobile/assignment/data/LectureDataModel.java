@@ -38,12 +38,12 @@ public class LectureDataModel {
                 COL_LAT + " integer, " +
                 COL_LON + " integer"
                 +")";
-        public static final String DROP_SQL = "drop table if exist "+TABLE_NAME;
+        public static final String DROP_SQL = "drop table if exists "+TABLE_NAME;
 
         public static final String INSERT_DATA = "insert into "+TABLE_NAME +" (" +
                 COL_NAME+","+COL_CODE+","+COL_LECTURER+","+COL_ROOM+","+COL_TIME+","+COL_LAT+","+COL_LON+") values" +
                 "('Cryptography and Network Security','COC140','Dr Ana Salagean','HE010',54000000,52765397,-1226117)," +
-                "('Software Project Management ','COC281','Dr Christian Dawson','SMB014',54000000,52765397,-1226117)," +
+                "('Software Project Management ','COC281','Dr Christian Dawson','SMB014',201600000,52765397,-1226117)," +
                 "('Mobile Application Development ','COC155','Dr Huanjia Yang','HE010',54000000,52765397,-1226117)," +
                 "('Robotics ','COC001','Dr Qinggang Meng','N001',54000000,52765397,-1226117)";
 

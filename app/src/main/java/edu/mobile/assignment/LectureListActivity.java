@@ -64,14 +64,17 @@ public class LectureListActivity extends ListActivity implements LoaderManager.L
         adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int i) {
-                if(i == cursor.getColumnIndexOrThrow(LectureDataModel.LectureEntity.COL_TIME)){
-                    int time = cursor.getInt(cursor.getColumnIndexOrThrow(LectureDataModel.LectureEntity.COL_TIME));
+                if(view.getId() == R.id.list_time){
+//                    int time = cursor.getInt(cursor.getColumnIndexOrThrow(LectureDataModel.LectureEntity.COL_TIME));
+                    int time = cursor.getInt(i);
                     Calendar cal = Calendar.getInstance();
+                    cal.clear();
                     cal.add(Calendar.MILLISECOND,time);
                     TextView textView = (TextView) view;
                     textView.setText(cal.get(Calendar.HOUR_OF_DAY)+":00");
+                    return true;
                 }
-                return true;
+                return false;
             }
         });
 
@@ -93,7 +96,9 @@ public class LectureListActivity extends ListActivity implements LoaderManager.L
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
+        Intent intent = new Intent(this,LectureDetailActivity.class);
+        intent.putExtra("_ID",(int)id);
+        startActivity(intent);
     }
 
     @Override
@@ -108,6 +113,7 @@ public class LectureListActivity extends ListActivity implements LoaderManager.L
                 LectureDataModel.LectureEntity.COL_TIME+" >= ? and "+LectureDataModel.LectureEntity.COL_TIME+" < ?",
                 new String[]{String.valueOf(getIntent().getIntExtra("day",0)),
                         String.valueOf(getIntent().getIntExtra("day",0)+86400000)},null);
+//        return new CursorLoader(this, LectureDataModel.BASE_CONTENT_URI, columns,null,null,null);
     }
 
     @Override

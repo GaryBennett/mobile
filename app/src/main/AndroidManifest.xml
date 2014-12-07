@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.mobile.assignment" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -38,6 +40,30 @@
             android:enabled="true"
             android:exported="true" >
         </receiver>
+
+        <activity
+            android:name="edu.mobile.assignment.LectureDetailActivity"
+            android:label="@string/title_activity_lecture_detail"
+            android:parentActivityName="edu.mobile.assignment.LectureListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.mobile.assignment.LectureListActivity" />
+        </activity>
+        <activity
+            android:name="edu.mobile.assignment.LectureFileActivity"
+            android:label="@string/title_activity_lecture_file"
+            android:parentActivityName="edu.mobile.assignment.LectureListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.mobile.assignment.LectureListActivity" />
+        </activity>
+
+        <activity android:name="ExDialog"
+            android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
