@@ -1,5 +1,6 @@
 package edu.mobile.assignment;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,8 +48,10 @@ public class ExDialog extends ListActivity {
         WindowManager m = getWindowManager();
         Display d = m.getDefaultDisplay();
         LayoutParams p = getWindow().getAttributes();
-        p.height = (int) (d.getHeight() * 0.8);
-        p.width = (int) (d.getWidth() * 0.95);
+        Point point = new Point();
+        d.getSize(point);
+        p.height = (int) (point.y * 0.8);
+        p.width = (int) (point.x * 0.95);
         getWindow().setAttributes(p);
     }
 
