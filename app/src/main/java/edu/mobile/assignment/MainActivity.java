@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
     }
 
     public void selectDay(View view){
-        Intent intent = new Intent(this.getApplicationContext(),LectureListActivity.class);
+        Intent intent = new Intent(this.getApplicationContext(),LectureMasterDetailActivity.class);
         switch (view.getId()){
             case R.id.btn_mon:
                 intent.putExtra("day",86400000*0);

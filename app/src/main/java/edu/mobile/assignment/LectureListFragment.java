@@ -2,6 +2,8 @@ package edu.mobile.assignment;
 
 import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.app.PendingIntent;
@@ -29,9 +31,23 @@ public class LectureListFragment  extends ListFragment implements LoaderManager.
 
     private SimpleCursorAdapter adapter;
 
+    boolean dualPane;
+    int mCurCheckPosition = 0;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        View detailFrame = getActivity().findViewById(R.id.lecture_detail_container);
+        dualPane = detailFrame != null && detailFrame.getVisibility() == View.VISIBLE;
+
+        if(dualPane){
+            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            showDetails(mCurCheckPosition);
+
+        }
+
+
         ProgressBar progressBar = new ProgressBar(getActivity());
         progressBar.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -56,7 +72,6 @@ public class LectureListFragment  extends ListFragment implements LoaderManager.
             @Override
             public boolean setViewValue(View view, Cursor cursor, int i) {
                 if(view.getId() == R.id.list_time){
-//                    int time = cursor.getInt(cursor.getColumnIndexOrThrow(LectureDataModel.LectureEntity.COL_TIME));
                     int time = cursor.getInt(i);
                     Calendar cal = Calendar.getInstance();
                     cal.clear();
@@ -85,11 +100,28 @@ public class LectureListFragment  extends ListFragment implements LoaderManager.
         });
     }
 
+    private void showDetails(int mCurCheckPosition) {
+
+    }
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(getActivity(),LectureDetailActivity.class);
-        intent.putExtra("_ID",(int)id);
-        startActivity(intent);
+
+        if(dualPane){
+            LectureDetailFragment detailFragment = new LectureDetailFragment();
+            Bundle args = new Bundle();
+            args.putInt("_ID",(int)id);
+            detailFragment.setArguments(args);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.lecture_detail_container,detailFragment);
+            ft.commit();
+
+
+        }else{
+            Intent intent = new Intent(getActivity(),LectureDetailActivity.class);
+            intent.putExtra("_ID",(int)id);
+            startActivity(intent);
+        }
     }
 
     @Override
