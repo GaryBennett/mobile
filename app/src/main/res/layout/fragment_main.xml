@@ -71,4 +71,17 @@
         android:background="#46156a"
         android:onClick="selectDay" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data Entry"
+        android:id="@+id/btn_entry"
+        android:layout_below="@+id/btn_fri"
+        android:layout_alignStart="@+id/btn_thur"
+        android:layout_marginTop="34dp"
+        android:layout_alignParentEnd="true"
+        android:textColor="#FFFFFF"
+        android:background="#46156a"
+        android:onClick="dataEntry" />
+
 </RelativeLayout>

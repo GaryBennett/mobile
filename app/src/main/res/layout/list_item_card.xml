@@ -38,6 +38,9 @@
                 android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
+
+
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -64,6 +67,19 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:src="@android:drawable/ic_lock_idle_alarm"
+        android:scaleType="fitCenter"
+        android:padding="10dp"
+        android:text="Empty Slot"
+        android:visibility="gone"
+        android:textSize="30dp"
+        android:id="@+id/empty_slot"
+        android:textColor="#ffdbdbdb" />
 
     <ImageButton
         android:layout_width="71dp"

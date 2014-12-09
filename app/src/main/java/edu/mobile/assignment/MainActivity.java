@@ -51,6 +51,11 @@ public class MainActivity extends Activity {
 
     }
 
+    public void dataEntry(View view){
+        Intent intent = new Intent(this,LectureInputActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */

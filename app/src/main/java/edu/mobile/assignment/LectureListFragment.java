@@ -7,12 +7,15 @@ import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +65,17 @@ public class LectureListFragment  extends ListFragment implements LoaderManager.
         int [] toView = {R.id.list_name,R.id.list_lecturer,R.id.list_time,R.id.list_room};
 
         adapter = new SimpleCursorAdapter(getActivity(),R.layout.list_item_card,null,
-                fromColumn,toView,0);
+                fromColumn,toView,0){
+            @Override
+            public void bindView(View view, Context context, Cursor cursor) {
+                super.bindView (view, context, cursor);
+                if(((TextView)view.findViewById(R.id.list_name)).getText().toString().length() == 0){
+                    view.findViewById(R.id.empty_slot).setVisibility(View.VISIBLE);
+                    view.setClickable(false);
+                    view.setOnClickListener(null);
+                }
+            }
+        };
 
         setListAdapter(adapter);
 
@@ -202,7 +215,6 @@ public class LectureListFragment  extends ListFragment implements LoaderManager.
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
                     && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
-//                if (showDeleteButton(e1))
                 return true;
             return super.onFling(e1, e2, velocityX, velocityY);
         }

@@ -27,14 +27,7 @@
             android:exported="true" >
         </provider>
 
-        <activity
-            android:name="edu.mobile.assignment.LectureListActivity"
-            android:label="@string/title_activity_lecture_list"
-            android:parentActivityName="edu.mobile.assignment.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.mobile.assignment.MainActivity" />
-        </activity>
+
 
         <receiver
             android:name="edu.mobile.assignment.LectureNotifyReceiver"
@@ -45,18 +38,18 @@
         <activity
             android:name="edu.mobile.assignment.LectureDetailActivity"
             android:label="@string/title_activity_lecture_detail"
-            android:parentActivityName="edu.mobile.assignment.LectureListActivity" >
+            android:parentActivityName="edu.mobile.assignment.LectureMasterDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.mobile.assignment.LectureListActivity" />
+                android:value="edu.mobile.assignment.LectureMasterDetailActivity" />
         </activity>
         <activity
             android:name="edu.mobile.assignment.LectureFileActivity"
             android:label="@string/title_activity_lecture_file"
-            android:parentActivityName="edu.mobile.assignment.LectureListActivity" >
+            android:parentActivityName="edu.mobile.assignment.LectureMasterDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.mobile.assignment.LectureListActivity" />
+                android:value="edu.mobile.assignment.LectureMasterDetailActivity" />
         </activity>
         <activity
             android:name="edu.mobile.assignment.ExDialog"
@@ -72,6 +65,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.mobile.assignment.MainActivity" />
+        </activity>
+        <activity
+            android:name="edu.mobile.assignment.LectureInputActivity"
+            android:label="@string/title_activity_lecture_input" >
         </activity>
     </application>
 

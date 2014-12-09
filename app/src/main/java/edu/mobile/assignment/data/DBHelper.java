@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private Context context;
 
     public DBHelper(Context context, SQLiteDatabase.CursorFactory factory) {
-        super(context, DB_NAME, factory, 14);
+        super(context, DB_NAME, factory, 16);
         this.context = context;
     }
 
@@ -28,8 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         execSqlFile(sqLiteDatabase,readSqlFile());
 
-//        sqLiteDatabase.execSQL(LectureDataModel.LectureEntity.CREATE_SQL);
-//        sqLiteDatabase.execSQL(LectureDataModel.LectureEntity.INSERT_DATA);
+
 
     }
 
@@ -38,8 +37,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(LectureDataModel.LectureEntity.DROP_SQL);
         execSqlFile(sqLiteDatabase,readSqlFile());
-//        sqLiteDatabase.execSQL(LectureDataModel.LectureEntity.CREATE_SQL);
-//        sqLiteDatabase.execSQL(LectureDataModel.LectureEntity.INSERT_DATA);
+
+
+
 
     }
 

@@ -61,19 +61,19 @@ public class LectureDetailFragment extends Fragment{
 
         //Display module details
         TextView module_code = (TextView) rootView.findViewById(R.id.module_code);
-        module_code.setText("Module Code: "+data_module_code);
+        module_code.setText(""+data_module_code);
 
         TextView module_name = (TextView) rootView.findViewById(R.id.module_name);
-        module_name.setText("Module name: "+data_module_name);
+        module_name.setText(""+data_module_name);
 
         TextView lecturer = (TextView) rootView.findViewById(R.id.lecturer);
-        lecturer.setText("Lecturer: "+data_module_lecturer);
+        lecturer.setText(""+data_module_lecturer);
 
         TextView room = (TextView) rootView.findViewById(R.id.room);
-        room.setText("Room: "+data_module_room);
+        room.setText(""+data_module_room);
 
         TextView time = (TextView) rootView.findViewById(R.id.time);
-        time.setText("Time: "+data_module_time);
+        time.setText(""+data_module_time);
 
         //Setup map image
 

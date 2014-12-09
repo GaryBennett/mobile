@@ -75,5 +75,6 @@
     </array>
 
     <string name="title_activity_lecture_master_detail">LectureMasterDetailActivity</string>
+    <string name="title_activity_lecture_input">LectureInputActivity</string>
 
 </resources>
