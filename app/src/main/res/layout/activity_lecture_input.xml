@@ -23,7 +23,7 @@
             android:text="Module Code" />
 
         <AutoCompleteTextView
-            android:id="@+id/txtTitle"
+            android:id="@+id/code_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.70"
@@ -47,7 +47,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.70"
-            android:ems="10" />
+            android:ems="10"
+            android:id="@+id/name_text" />
 
     </LinearLayout>
     <LinearLayout
@@ -66,7 +67,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.70"
-            android:ems="10" />
+            android:ems="10"
+            android:id="@+id/lecturer_text" />
 
     </LinearLayout>
     <LinearLayout
@@ -85,7 +87,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.70"
-            android:ems="10" />
+            android:ems="10"
+            android:id="@+id/room_text" />
 
     </LinearLayout>
     <LinearLayout
@@ -128,30 +131,13 @@
             android:ems="10"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.30"
-            android:text="Module Code" />
 
-        <AutoCompleteTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.70"
-            android:ems="10" />
-
-    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/button2"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:onClick="submit"/>
 </LinearLayout>
