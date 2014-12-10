@@ -64,19 +64,38 @@ public class LectureListFragment  extends ListFragment implements LoaderManager.
                 LectureDataModel.LectureEntity.COL_TIME,LectureDataModel.LectureEntity.COL_ROOM};
         int [] toView = {R.id.list_name,R.id.list_lecturer,R.id.list_time,R.id.list_room};
 
+        final GestureDetector gestureDetector;
+        gestureDetector = new GestureDetector(getActivity(),new MyGestureDetector(getListView()));
+
         adapter = new SimpleCursorAdapter(getActivity(),R.layout.list_item_card,null,
                 fromColumn,toView,0){
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
                 super.bindView (view, context, cursor);
-                if(((TextView)view.findViewById(R.id.list_name)).getText().toString().length() == 0){
+                if((((TextView)view.findViewById(R.id.list_name)).getText().toString().length() == 0)){
+                    Log.i("",cursor.getPosition()+"VISIBLE "+view.hasOnClickListeners());
                     view.findViewById(R.id.empty_slot).setVisibility(View.VISIBLE);
-                    view.setFocusable(false);
-                    view.setClickable(false);
-                }else{
-                    view.findViewById(R.id.empty_slot).setVisibility(View.GONE);
+
+
                     view.setFocusable(true);
-                    view.setClickable(true);
+                    view.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            if (gestureDetector.onTouchEvent(motionEvent)) {
+                                showDeleteButton(getListView().pointToPosition((int)motionEvent.getX(),(int)motionEvent.getY()));
+                                return true;
+                            }
+                            return false;
+                        }
+                    });
+
+                }else{
+                    Log.i("",cursor.getPosition()+"GONE "+view.hasOnClickListeners());
+                    view.findViewById(R.id.empty_slot).setVisibility(View.GONE);
+                    //                    view.setFocusable(false);
+//                    view.setClickable(false);
+//                    view.setOnClickListener(null);
+//                    view.setOnTouchListener(null);
                 }
             }
         };
@@ -102,19 +121,18 @@ public class LectureListFragment  extends ListFragment implements LoaderManager.
         });
 
 
-        final GestureDetector gestureDetector;
-        gestureDetector = new GestureDetector(getActivity(),new MyGestureDetector(getListView()));
 
-        getListView().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (gestureDetector.onTouchEvent(motionEvent)) {
-                    showDeleteButton(getListView().pointToPosition((int)motionEvent.getX(),(int)motionEvent.getY()));
-                    return true;
-                }
-                return false;
-            }
-        });
+
+//        getListView().setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                if (gestureDetector.onTouchEvent(motionEvent)) {
+//                    showDeleteButton(getListView().pointToPosition((int)motionEvent.getX(),(int)motionEvent.getY()));
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
     }
 
     private void showDetails(int mCurCheckPosition) {
