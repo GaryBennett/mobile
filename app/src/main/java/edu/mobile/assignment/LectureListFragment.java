@@ -71,8 +71,12 @@ public class LectureListFragment  extends ListFragment implements LoaderManager.
                 super.bindView (view, context, cursor);
                 if(((TextView)view.findViewById(R.id.list_name)).getText().toString().length() == 0){
                     view.findViewById(R.id.empty_slot).setVisibility(View.VISIBLE);
+                    view.setFocusable(false);
                     view.setClickable(false);
-                    view.setOnClickListener(null);
+                }else{
+                    view.findViewById(R.id.empty_slot).setVisibility(View.GONE);
+                    view.setFocusable(true);
+                    view.setClickable(true);
                 }
             }
         };
