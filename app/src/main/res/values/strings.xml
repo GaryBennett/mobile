@@ -15,6 +15,25 @@
     <string name="explorer">Explorer</string>
     <string name="dialog_read_from_dir">Open from dir</string>
 
+    <array name="day_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </array>
+
+    <array name="hour_array">
+        <item>9:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>17:00</item>
+    </array>
+
     <array name="fileEndingImage">
         <item>.png</item>
         <item>.gif</item>

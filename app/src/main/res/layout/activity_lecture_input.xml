@@ -98,9 +98,30 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.30"
+            android:text="Week day" />
+
+        <Spinner
+            android:id="@+id/spinner_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.70"
+            android:ems="10"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.30"
             android:text="Time" />
 
         <Spinner
+            android:id="@+id/spinner_hour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.70"

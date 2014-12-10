@@ -4,15 +4,28 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 
 public class LectureInputActivity extends Activity {
+
+    private Spinner daySpinner;
+    private Spinner hourSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecture_input);
+        daySpinner = (Spinner) findViewById(R.id.spinner_day);
+        hourSpinner = (Spinner) findViewById(R.id.spinner_hour);
+        daySpinner.setAdapter(ArrayAdapter.createFromResource(this,R.array.day_array,android.R.layout.simple_spinner_dropdown_item));
+        hourSpinner.setAdapter(ArrayAdapter.createFromResource(this,R.array.hour_array,android.R.layout.simple_spinner_dropdown_item));
+
     }
+
+
+
 
 
 //    @Override
